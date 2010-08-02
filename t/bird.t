@@ -27,7 +27,7 @@ sub attributes : Test(5) {
     is_deeply $inoue->messages, List::Rubyish->new;
 }
 
-sub follow : Tests(6) {
+sub follow_remove : Tests(8) {
     my ($self) = @_;
     my $inoue = $self->{inoue};
     my $shibata = $self->{shibata};
@@ -40,6 +40,9 @@ sub follow : Tests(6) {
     ok $inoue->is_following($shibata), '井上は柴田をfollowしてる';
     ok $shibata->is_followed_by($inoue), '柴田は井上にをfollowされてる';
     ok !$shibata->is_following($inoue), '柴田は井上をfollowしていない';
+
+    ok $inoue->remove($shibata), '井上が柴田をremove';
+    ok !$inoue->is_following($shibata), '井上は柴田をfollowしてない(removeしたので)';
 }
 
 sub tweet : Tests {
