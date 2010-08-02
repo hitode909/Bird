@@ -66,6 +66,12 @@ sub receive : Tests {
 
     is $kobayashi->messages->length, 1, '小林1件受信してる';
     is $shibata->messages->length, 0, '柴田は関係ないので0件';
+
+    ok $kobayashi->remove($inoue), '小林が井上をremoveする';
+
+    ok $inoue->tweet('眠い(2)'), '井上がなんかしゃべる';
+
+    is $kobayashi->messages->length, 1, '小林もう受信しない';
 }
 
 __PACKAGE__->runtests;

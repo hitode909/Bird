@@ -38,6 +38,14 @@ sub follow {
     $self;
 }
 
+sub remove {
+    my ($self, $user) = @_;
+    croak "フォローしてない" unless $self->is_following($user);
+    delete $self->friends->{$user->name};
+    delete $user->followers->{$self->name};
+    $self;
+}
+
 sub is_following {
     my ($self, $user) = @_;
     !!$self->friends->{$user->name};
